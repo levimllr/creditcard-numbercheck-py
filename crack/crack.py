@@ -20,35 +20,26 @@ def crack():
 
     # This string contains every possible character in our password (in this case, alphabetic + null).
     possibilitiesstr = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    possibilities = list(possibilitiesstr)
-    length = len(possibilities)
-    key = ["","","","",""]
 
     # This cascade of for loops iterates over all of the characters in the possiblities string for each place in our key string.
-    for n in range(len(possibilities) + 1):
-        key[5] = possibilities[n]
+    for n in possibilitiesstr:
 
+        for m in possibilitiesstr:
 
-        for m in range(len(possibilities) + 1):
-            key[4] = possibilities[m]
+            for l in possibilitiesstr:
 
+                for k in possibilitiesstr:
 
-            for l in range(len(possibilities) + 1):
-                key[3] = possibilities[l]
+                    for j in possibilitiesstr:
 
+                        # One of the great things about Python: we can create a string whose characters are iteratively replaced using the {j} notation and the f prefix.
+                        # Additionally, .strip() serves to remove white space from the password.
+                        pw = f"{j}{k}{l}{m}{n}".strip()
 
-                for k in range(len(possibilities) + 1):
-                    key[2] = possibilities[k]
+                        # When the key, encrypted with the salt via the crypt function, equals the provided hash, the program stops and print the key (aka password).
+                        if crypt.crypt(pw, salt) == hashish:
+                            print(pw)
+                            return None
 
-
-                    for j in range(len(possibilities) + 1):
-                        key[1] = possibilities[j]
-
-                        for i in range(len(possibilities) + 1):
-                            key[0] = possibilities[i]
-
-                            # When the key, encrypted with the salt via the crypt function, equals the provided hash, the program stops and print the key (aka password).
-                            if crypt.crypt(str(key),salt) == hashish:
-                                print(str(key))
 
 crack()
